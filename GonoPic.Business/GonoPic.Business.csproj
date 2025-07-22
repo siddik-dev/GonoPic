@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GonoPic.Data\GonoPic.Data.csproj" />
+  </ItemGroup>
+
 </Project>
