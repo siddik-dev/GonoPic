@@ -1,5 +1,9 @@
+using GonoPic.Business.Services.Interfaces;
+using GonoPic.Business.Services.Implementations;
 using GonoPic.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using GonoPic.Data.Repositories.Implementations;
+using GonoPic.Data.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +15,9 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<GonoPicDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
