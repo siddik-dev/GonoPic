@@ -9,10 +9,10 @@ namespace GonoPic.Business.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<IEnumerable<User>> GetAllUsers();
-        Task<User> GetUserById(int id);
-        Task CreateUser(User user);
-        Task UpdateUser(User user);
-        Task DeleteUser(int id);
+        Task<IEnumerable<User>> GetAllUsersAsync();
+        Task<User> GetUserByIdAsync(int id);
+        Task CreateUserAsync(User user);
+        Task UpdateUserAsync(User user);
+        Task DeleteUserAsync(int id);
     }
 }

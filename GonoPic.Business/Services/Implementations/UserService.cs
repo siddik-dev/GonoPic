@@ -18,29 +18,29 @@ namespace GonoPic.Business.Services.Implementations
             _userRepository = userRepository;
         }
 
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<IEnumerable<User>> GetAllUsersAsync()
         {
-            return await _userRepository.GetAll();
+            return await _userRepository.GetAllAsync();
         }
 
-        public async Task<User> GetUserById(int id)
+        public async Task<User> GetUserByIdAsync(int id)
         {
-            return await _userRepository.GetById(id);
+            return await _userRepository.GetByIdAsync(id);
         }
 
-        public async Task CreateUser(User user)
+        public async Task CreateUserAsync(User user)
         {
-            await _userRepository.Add(user);
+            await _userRepository.AddAsync(user);
         }
 
-        public async Task UpdateUser(User user)
+        public async Task UpdateUserAsync(User user)
         {
-            await _userRepository.Update(user);
+            await _userRepository.UpdateAsync(user);
         }
 
-        public async Task DeleteUser(int id)
+        public async Task DeleteUserAsync(int id)
         {
-            await _userRepository.Delete(id);
+            await _userRepository.DeleteAsync(id);
         }
     }
 }

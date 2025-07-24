@@ -19,28 +19,28 @@ namespace GonoPic.Data.Repositories.Implementations
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<User>> GetAll()
+        public async Task<IEnumerable<User>> GetAllAsync()
         {
             return await _dbContext.Users.ToListAsync();
         }
 
-        public async Task<User> GetById(int id)
+        public async Task<User> GetByIdAsync(int id)
         {
             return await _dbContext.Users.FindAsync(id);
         }
 
-        public async Task Add(User user)
+        public async Task AddAsync(User user)
         {
             _dbContext.Users.Add(user);
             await _dbContext.SaveChangesAsync();
         }
-        public async Task Update(User user)
+        public async Task UpdateAsync(User user)
         {
             _dbContext.Users.Update(user);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             var user = await _dbContext.Users.FindAsync(id);
             if (user != null)

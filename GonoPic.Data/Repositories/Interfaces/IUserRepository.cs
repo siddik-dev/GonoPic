@@ -9,11 +9,11 @@ namespace GonoPic.Data.Repositories.Interfaces
 {
     public interface IUserRepository
     {   
-        Task<IEnumerable<User>> GetAll();
-        Task<User> GetById(int id);
-        Task Add (User user);
-        Task Update (User user);
-        Task Delete (int id);
+        Task<IEnumerable<User>> GetAllAsync();
+        Task<User> GetByIdAsync(int id);
+        Task AddAsync (User user);
+        Task UpdateAsync (User user);
+        Task DeleteAsync (int id);
 
     }
 }

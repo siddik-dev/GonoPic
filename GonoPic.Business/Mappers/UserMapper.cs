@@ -10,9 +10,9 @@ namespace GonoPic.Business.Mappers
 {
     public static class UserMapper
     {
-        public static UserDto ToDto(User user)
+        public static UserReadDto ToDto(User user)
         {
-            return new UserDto
+            return new UserReadDto
             {
                 Id = user.Id,
                 FirstName = user.FirstName,
@@ -36,25 +36,18 @@ namespace GonoPic.Business.Mappers
 
         public static void UpdateEntity(User user, UserUpdateDto dto)
         {
-            if (!string.IsNullOrWhiteSpace(dto.FirstName))
-            {
-                user.FirstName = dto.FirstName;
-            }
-            
-            if (!string.IsNullOrWhiteSpace(dto.LastName))
-            {
-                user.LastName = dto.LastName;
-            }
+            user.FirstName = dto.FirstName;
+            user.LastName = dto.LastName;
+        }
 
-            if (!string.IsNullOrWhiteSpace(dto.Email))
-            {
-                user.Email = dto.Email;
-            }
+        public static void UpdateEmail(User user, UserUpdateEmailDto dto)
+        {
+            user.Email = dto.Email;
+        }
 
-            if (!string.IsNullOrWhiteSpace(dto.Password))
-            {
-                user.PasswordHash = HashPassword(dto.Password);
-            }
+        public static void UpdatePassword(User user, UserUpdatePasswordDto dto)
+        {
+            user.PasswordHash = HashPassword(dto.Password);
         }
 
         private static string HashPassword(string password)
