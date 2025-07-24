@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GonoPic.WebApi", "GonoPic\GonoPic.WebApi.csproj", "{367C2816-52BC-412E-881C-02FCF305AFB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GonoPic.WebApi", "GonoPic.WebApi\GonoPic.WebApi.csproj", "{367C2816-52BC-412E-881C-02FCF305AFB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GonoPic.Domain", "GonoPic.Data\GonoPic.Domain.csproj", "{5885BC20-4181-4CB1-85C6-C45834400986}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GonoPic.Domain", "GonoPic.Domain\GonoPic.Domain.csproj", "{5885BC20-4181-4CB1-85C6-C45834400986}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GonoPic.Application", "GonoPic.Business\GonoPic.Application.csproj", "{17468AF6-439C-456D-B3A9-2EDB778EDE26}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GonoPic.Application", "GonoPic.Application\GonoPic.Application.csproj", "{17468AF6-439C-456D-B3A9-2EDB778EDE26}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GonoPic.Infrastructure", "GonoPic.Infrastructure\GonoPic.Infrastructure.csproj", "{E61C12D5-5A1F-412B-B259-406765D0D030}"
 EndProject

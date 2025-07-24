@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GonoPic.Data\GonoPic.Domain.csproj" />
+    <ProjectReference Include="..\GonoPic.Domain\GonoPic.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
