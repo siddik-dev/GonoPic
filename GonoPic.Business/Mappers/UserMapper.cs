@@ -1,12 +1,12 @@
-﻿using GonoPic.Business.DTOs;
-using GonoPic.Data.Entities;
+﻿using GonoPic.Application.DTOs;
+using GonoPic.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GonoPic.Business.Mappers
+namespace GonoPic.Application.Mappers
 {
     public static class UserMapper
     {

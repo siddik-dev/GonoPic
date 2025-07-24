@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GonoPic.Data.Entities;
+using GonoPic.Domain.Entities;
 
-namespace GonoPic.Business.Services.Interfaces
+namespace GonoPic.Application.Interfaces
 {
     public interface IUserService
     {

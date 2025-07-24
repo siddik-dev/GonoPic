@@ -1,6 +1,6 @@
-﻿using GonoPic.Data.Context;
-using GonoPic.Data.Entities;
-using GonoPic.Data.Repositories.Interfaces;
+﻿using GonoPic.Domain.Entities;
+using GonoPic.Domain.Interfaces;
+using GonoPic.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,13 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GonoPic.Data.Repositories.Implementations
+namespace GonoPic.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
         private readonly GonoPicDbContext _dbContext;
 
-        public UserRepository (GonoPicDbContext dbContext)
+        public UserRepository(GonoPicDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -47,7 +47,7 @@ namespace GonoPic.Data.Repositories.Implementations
             {
                 _dbContext.Users.Remove(user);
                 await _dbContext.SaveChangesAsync();
-            }          
+            }
         }
     }
 }

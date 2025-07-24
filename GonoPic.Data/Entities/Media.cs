@@ -1,11 +1,12 @@
-﻿using System;
+﻿using GonoPic.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GonoPic.Data.Entities
+namespace GonoPic.Domain.Entities
 {
     public class Media
     {
@@ -28,9 +29,4 @@ namespace GonoPic.Data.Entities
 
 }
 
-public enum MediaType
-{
-    Photo,
-    Audio,
-    Video
-}
+

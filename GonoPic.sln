@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35521.163 d17.12
+VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GonoPic", "GonoPic\GonoPic.csproj", "{367C2816-52BC-412E-881C-02FCF305AFB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GonoPic.WebApi", "GonoPic\GonoPic.WebApi.csproj", "{367C2816-52BC-412E-881C-02FCF305AFB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GonoPic.Data", "GonoPic.Data\GonoPic.Data.csproj", "{5885BC20-4181-4CB1-85C6-C45834400986}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GonoPic.Domain", "GonoPic.Data\GonoPic.Domain.csproj", "{5885BC20-4181-4CB1-85C6-C45834400986}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GonoPic.Business", "GonoPic.Business\GonoPic.Business.csproj", "{17468AF6-439C-456D-B3A9-2EDB778EDE26}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GonoPic.Application", "GonoPic.Business\GonoPic.Application.csproj", "{17468AF6-439C-456D-B3A9-2EDB778EDE26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GonoPic.Infrastructure", "GonoPic.Infrastructure\GonoPic.Infrastructure.csproj", "{E61C12D5-5A1F-412B-B259-406765D0D030}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{17468AF6-439C-456D-B3A9-2EDB778EDE26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17468AF6-439C-456D-B3A9-2EDB778EDE26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17468AF6-439C-456D-B3A9-2EDB778EDE26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E61C12D5-5A1F-412B-B259-406765D0D030}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E61C12D5-5A1F-412B-B259-406765D0D030}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E61C12D5-5A1F-412B-B259-406765D0D030}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E61C12D5-5A1F-412B-B259-406765D0D030}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

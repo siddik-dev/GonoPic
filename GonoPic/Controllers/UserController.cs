@@ -1,8 +1,8 @@
-﻿using GonoPic.Business.DTOs;
-using GonoPic.Business.Mappers;
-using GonoPic.Business.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using GonoPic.Application.Interfaces;
+using GonoPic.Infrastructure.Data;
+using GonoPic.Application.Mappers;
 using Microsoft.AspNetCore.Mvc;
+using GonoPic.Application.DTOs;
 
 namespace GonoPic.Controllers
 {

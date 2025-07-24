@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GonoPic.Data.Entities
+namespace GonoPic.Domain.Entities
 {
     public class MediaTag
     {

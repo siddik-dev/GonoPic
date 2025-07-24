@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace GonoPic.Data.Entities
+namespace GonoPic.Domain.Entities
 {
     public class User
     {

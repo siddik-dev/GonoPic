@@ -1,13 +1,13 @@
-﻿using GonoPic.Business.Services.Interfaces;
-using GonoPic.Data.Entities;
-using GonoPic.Data.Repositories.Interfaces;
+﻿using GonoPic.Application.Interfaces;
+using GonoPic.Domain.Entities;
+using GonoPic.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GonoPic.Business.Services.Implementations
+namespace GonoPic.Application.Services
 {
     public class UserService : IUserService
     {

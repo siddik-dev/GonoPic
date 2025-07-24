@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GonoPic.Business.DTOs
+namespace GonoPic.Application.DTOs
 {
     public class UserUpdateDto
     {

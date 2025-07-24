@@ -1,9 +1,9 @@
-using GonoPic.Business.Services.Interfaces;
-using GonoPic.Business.Services.Implementations;
-using GonoPic.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using GonoPic.Data.Repositories.Implementations;
-using GonoPic.Data.Repositories.Interfaces;
+using GonoPic.Domain.Interfaces;
+using GonoPic.Application.Interfaces;
+using GonoPic.Application.Services;
+using GonoPic.Infrastructure.Repositories;
+using GonoPic.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
