@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GonoPic.Application\GonoPic.Application.csproj" />
-    <ProjectReference Include="..\GonoPic.Domain\GonoPic.Domain.csproj" />
     <ProjectReference Include="..\GonoPic.Infrastructure\GonoPic.Infrastructure.csproj" />
   </ItemGroup>
 
