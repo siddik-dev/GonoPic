@@ -10,7 +10,7 @@ namespace GonoPic.Business.Mappers
 {
     public static class UserMapper
     {
-        public static UserReadDto ToDto(User user)
+        public static UserReadDto ToDTO(User user)
         {
             return new UserReadDto
             {

@@ -21,7 +21,7 @@ namespace GonoPic.Controllers
         public async Task<ActionResult<IEnumerable<UserReadDto>>> GetAll()
         {
             var users = await _userService.GetAllUsersAsync();
-            var userDtos = users.Select(UserMapper.ToDto);
+            var userDtos = users.Select(UserMapper.ToDTO);
             return Ok(userDtos);
         }
 
@@ -32,7 +32,7 @@ namespace GonoPic.Controllers
             if (user == null) 
                 return NotFound();
 
-            var userDto = UserMapper.ToDto(user);
+            var userDto = UserMapper.ToDTO(user);
             return Ok(userDto);
         }
 
@@ -42,7 +42,7 @@ namespace GonoPic.Controllers
             var user = UserMapper.ToEntity(dto);
             await _userService.CreateUserAsync(user);
             
-            var userDto = UserMapper.ToDto(user);
+            var userDto = UserMapper.ToDTO(user);
             return CreatedAtAction(nameof(Get), new { id = user.Id }, userDto);
         }
 
