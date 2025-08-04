@@ -1,8 +1,10 @@
-﻿using GonoPic.Application.Interfaces;
-using GonoPic.Infrastructure.Data;
-using GonoPic.Application.Mappers;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using GonoPic.Application.DTOs;
+using Microsoft.AspNetCore.Identity;
+using GonoPic.Domain.Identity;
+using GonoPic.Infrastructure.JWT;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace GonoPic.Controllers
 {
@@ -10,88 +12,156 @@ namespace GonoPic.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private IUserService _userService;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly TokenService _tokenService;
 
-        public UserController(IUserService userService)
+        public UserController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, TokenService tokenService)
         {
-            _userService = userService;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _tokenService = tokenService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserReadDto>>> GetAll()
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(UserCreateDto dto)
         {
-            var users = await _userService.GetAllUsersAsync();
-            var userDtos = users.Select(UserMapper.ToDTO);
-            return Ok(userDtos);
+            var user = new ApplicationUser
+            {
+                UserName = dto.Email,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Email = dto.Email
+            };
+
+            var result = await _userManager.CreateAsync(user, dto.Password);
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            return Ok(new { message = "User registered successfully" });
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<UserReadDto>> Get(string id)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(UserLoginDto dto)
         {
-            var user = await _userService.GetUserByIdAsync(id);
-            if (user == null) 
-                return NotFound();
-
-            var userDto = UserMapper.ToDTO(user);
-            return Ok(userDto);
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Create(UserCreateDto dto)
-        {
-            var user = UserMapper.ToEntity(dto);
-            await _userService.CreateUserAsync(user);
-            
-            var userDto = UserMapper.ToDTO(user);
-            return CreatedAtAction(nameof(Get), new { id = user.Id }, userDto);
-        }
-
-        [HttpPost("{id}")]
-        public async Task<ActionResult> Update(string id, UserUpdateDto dto)
-        {
-            var user = await _userService.GetUserByIdAsync(id);
-            if (user == null) 
-                return NotFound();
-
-            UserMapper.UpdateEntity(user, dto);
-            await _userService.UpdateUserAsync(user);
-            return NoContent();
-        }
-
-        [HttpPost("{id}/update-email")]
-        public async Task<ActionResult> UpdateEmail(string id, UserUpdateEmailDto dto)
-        {
-            var user = await _userService.GetUserByIdAsync(id);
+            var user = await _userManager.FindByEmailAsync(dto.Email);
             if (user == null)
-                return NotFound();
+            {
+                return Unauthorized(new { message = "Invalid email or password" });
+            }
 
-            UserMapper.UpdateEmail(user, dto);
-            await _userService.UpdateUserAsync(user);
-            return NoContent();
+            var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
+            if (!result.Succeeded)
+            {
+                return Unauthorized(new { message = "Invalid email or password" });
+            }
+
+            var roles = await _userManager.GetRolesAsync(user);
+            var token = _tokenService.CreateToken(user, roles);
+
+            return Ok(new { token });
         }
 
-        [HttpPost("{id}/update-password")]
-        public async Task<ActionResult> UpdatePassword(string id, UserUpdatePasswordDto dto)
+        [Authorize]
+        [HttpGet("profile")]
+        public async Task<IActionResult> Profile()
         {
-            var user = await _userService.GetUserByIdAsync(id);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
+            {
                 return NotFound();
+            }
 
-            UserMapper.UpdatePassword(user, dto);
-            await _userService.UpdateUserAsync(user);
+            var dto = new UserReadDto
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                IsCreator = user.IsCreator,
+                CreatedAt = user.CreatedAt,
+            };
+
+            return Ok(dto);
+        }
+
+        [Authorize]
+        [HttpPost("update-profile")]
+        public async Task<IActionResult> UpdateProfile(UserUpdateDto dto)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.FirstName = dto.FirstName;
+            user.LastName = dto.LastName;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+
             return NoContent();
         }
 
+        [Authorize]
+        [HttpPost("update-password")]
+        public async Task<IActionResult> UpdatePassword(UserUpdatePasswordDto dto)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null) 
+            {
+                return NotFound();
+            }
+
+            var result = await _userManager.ChangePasswordAsync(user, dto.CurrentPassword, dto.NewPassword);
+            if (!result.Succeeded)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            return NoContent();
+        }
+
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(string id)
+        public async Task<IActionResult> DeleteUser(string id)
         {
-            var user = await _userService.GetUserByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
             if (user == null)
                 return NotFound();
 
-            await _userService.DeleteUserAsync(id);
+            var result = await _userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
             return NoContent();
         }
+
+        [Authorize]
+        [HttpDelete("delete-self")]
+        public async Task<IActionResult> DeleteOwnAccount()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+                return NotFound();
+
+            var result = await _userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            return NoContent();
+        }
+
 
     }
 }

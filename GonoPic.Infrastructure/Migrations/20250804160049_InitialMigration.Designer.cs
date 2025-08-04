@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GonoPic.Infrastructure.Migrations
 {
     [DbContext(typeof(GonoPicDbContext))]
-    [Migration("20250729153100_IdentitySchema")]
-    partial class IdentitySchema
+    [Migration("20250804160049_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
