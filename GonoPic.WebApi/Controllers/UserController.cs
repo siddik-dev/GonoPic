@@ -26,7 +26,7 @@ namespace GonoPic.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserReadDto>> Get(int id)
+        public async Task<ActionResult<UserReadDto>> Get(string id)
         {
             var user = await _userService.GetUserByIdAsync(id);
             if (user == null) 
@@ -47,7 +47,7 @@ namespace GonoPic.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<ActionResult> Update(int id, UserUpdateDto dto)
+        public async Task<ActionResult> Update(string id, UserUpdateDto dto)
         {
             var user = await _userService.GetUserByIdAsync(id);
             if (user == null) 
@@ -59,7 +59,7 @@ namespace GonoPic.Controllers
         }
 
         [HttpPost("{id}/update-email")]
-        public async Task<ActionResult> UpdateEmail(int id, UserUpdateEmailDto dto)
+        public async Task<ActionResult> UpdateEmail(string id, UserUpdateEmailDto dto)
         {
             var user = await _userService.GetUserByIdAsync(id);
             if (user == null)
@@ -71,7 +71,7 @@ namespace GonoPic.Controllers
         }
 
         [HttpPost("{id}/update-password")]
-        public async Task<ActionResult> UpdatePassword(int id, UserUpdatePasswordDto dto)
+        public async Task<ActionResult> UpdatePassword(string id, UserUpdatePasswordDto dto)
         {
             var user = await _userService.GetUserByIdAsync(id);
             if (user == null)
@@ -83,7 +83,7 @@ namespace GonoPic.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(string id)
         {
             var user = await _userService.GetUserByIdAsync(id);
             if (user == null)

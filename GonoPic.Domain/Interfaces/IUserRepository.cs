@@ -1,4 +1,4 @@
-﻿using GonoPic.Domain.Entities;
+﻿using GonoPic.Domain.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +9,11 @@ namespace GonoPic.Domain.Interfaces
 {
     public interface IUserRepository
     {
-        Task<IEnumerable<User>> GetAllAsync();
-        Task<User> GetByIdAsync(int id);
-        Task AddAsync(User user);
-        Task UpdateAsync(User user);
-        Task DeleteAsync(int id);
+        Task<IEnumerable<ApplicationUser>> GetAllAsync();
+        Task<ApplicationUser> GetByIdAsync(string id);
+        Task AddAsync(ApplicationUser user);
+        Task UpdateAsync(ApplicationUser user);
+        Task DeleteAsync(string id);
 
     }
 }

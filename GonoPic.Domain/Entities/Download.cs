@@ -9,8 +9,7 @@ namespace GonoPic.Domain.Entities
     public class Download
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public string UserId { get; set; } = default!;
 
         public int MediaId { get; set; }
         public Media Media { get; set; }

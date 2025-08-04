@@ -1,5 +1,5 @@
 ﻿using GonoPic.Application.DTOs;
-using GonoPic.Domain.Entities;
+using GonoPic.Domain.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace GonoPic.Application.Mappers
 {
     public static class UserMapper
     {
-        public static UserReadDto ToDTO(User user)
+        public static UserReadDto ToDTO(ApplicationUser user)
         {
             return new UserReadDto
             {
@@ -23,9 +23,9 @@ namespace GonoPic.Application.Mappers
             };
         }
 
-        public static User ToEntity(UserCreateDto dto)
+        public static ApplicationUser ToEntity(UserCreateDto dto)
         {
-            return new User
+            return new ApplicationUser
             {
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
@@ -34,18 +34,18 @@ namespace GonoPic.Application.Mappers
             };
         }
 
-        public static void UpdateEntity(User user, UserUpdateDto dto)
+        public static void UpdateEntity(ApplicationUser user, UserUpdateDto dto)
         {
             user.FirstName = dto.FirstName;
             user.LastName = dto.LastName;
         }
 
-        public static void UpdateEmail(User user, UserUpdateEmailDto dto)
+        public static void UpdateEmail(ApplicationUser user, UserUpdateEmailDto dto)
         {
             user.Email = dto.Email;
         }
 
-        public static void UpdatePassword(User user, UserUpdatePasswordDto dto)
+        public static void UpdatePassword(ApplicationUser user, UserUpdatePasswordDto dto)
         {
             user.PasswordHash = HashPassword(dto.Password);
         }

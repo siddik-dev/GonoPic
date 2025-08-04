@@ -1,5 +1,5 @@
 ﻿using GonoPic.Application.Interfaces;
-using GonoPic.Domain.Entities;
+using GonoPic.Domain.Identity;
 using GonoPic.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -18,27 +18,27 @@ namespace GonoPic.Application.Services
             _userRepository = userRepository;
         }
 
-        public async Task<IEnumerable<User>> GetAllUsersAsync()
+        public async Task<IEnumerable<ApplicationUser>> GetAllUsersAsync()
         {
             return await _userRepository.GetAllAsync();
         }
 
-        public async Task<User> GetUserByIdAsync(int id)
+        public async Task<ApplicationUser> GetUserByIdAsync(string id)
         {
             return await _userRepository.GetByIdAsync(id);
         }
 
-        public async Task CreateUserAsync(User user)
+        public async Task CreateUserAsync(ApplicationUser user)
         {
             await _userRepository.AddAsync(user);
         }
 
-        public async Task UpdateUserAsync(User user)
+        public async Task UpdateUserAsync(ApplicationUser user)
         {
             await _userRepository.UpdateAsync(user);
         }
 
-        public async Task DeleteUserAsync(int id)
+        public async Task DeleteUserAsync(string id)
         {
             await _userRepository.DeleteAsync(id);
         }

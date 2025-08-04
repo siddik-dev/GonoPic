@@ -10,7 +10,7 @@ namespace GonoPic.Application.DTOs
     public class UserUpdateDto
     {
         [Required]
-        public int Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         [Required, StringLength(50)]
         public string FirstName { get; set; } = string.Empty;

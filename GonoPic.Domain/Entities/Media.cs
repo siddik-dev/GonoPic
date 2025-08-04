@@ -18,8 +18,7 @@ namespace GonoPic.Domain.Entities
         public string ThumbnailPath { get; set; }
         public DateTime UploadedAt { get; set; }
 
-        public int UploadedByUserId { get; set; }
-        public User UploadedBy { get; set; }
+        public string UploadedByUserId { get; set; } = default!;
 
         public int CategoryId { get; set; }
         public Category Category { get; set; }

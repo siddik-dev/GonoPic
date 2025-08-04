@@ -1,4 +1,6 @@
 ﻿using GonoPic.Domain.Entities;
+using GonoPic.Domain.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GonoPic.Infrastructure.Data
 {
-    public class GonoPicDbContext : DbContext
+    public class GonoPicDbContext : IdentityDbContext<ApplicationUser>
     {
         public GonoPicDbContext(DbContextOptions<GonoPicDbContext> options)
             : base(options)
@@ -23,23 +25,22 @@ namespace GonoPic.Infrastructure.Data
             modelBuilder.Entity<MediaTag>()
                 .HasKey(mt => new { mt.MediaId, mt.TagId });
 
-            // User → Media (uploaded by)
+            // ApplicationUser → Media (uploaded by)
             modelBuilder.Entity<Media>()
-                .HasOne(m => m.UploadedBy)
+                .HasOne<ApplicationUser>()
                 .WithMany(u => u.UploadedMedia)
                 .HasForeignKey(m => m.UploadedByUserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // User → Download
+            // ApplicationUser → Download
             modelBuilder.Entity<Download>()
-                .HasOne(d => d.User)
+                .HasOne<ApplicationUser>()
                 .WithMany(u => u.Downloads)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
 
         // DbSet properties for your entities
-        public DbSet<User> Users { get; set; }
         public DbSet<Media> Media { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Tag> Tags { get; set; }

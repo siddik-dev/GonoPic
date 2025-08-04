@@ -4,6 +4,9 @@ using GonoPic.Application.Interfaces;
 using GonoPic.Application.Services;
 using GonoPic.Infrastructure.Repositories;
 using GonoPic.Infrastructure.Data;
+using GonoPic.Domain.Identity;
+using Microsoft.AspNetCore.Identity;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,8 +19,15 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<GonoPicDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<GonoPicDbContext>()
+    .AddDefaultTokenProviders();
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+
 
 var app = builder.Build();
 
