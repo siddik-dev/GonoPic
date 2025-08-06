@@ -1,5 +1,5 @@
 ﻿using GonoPic.Domain.Entities;
-using GonoPic.Domain.Identity;
+using GonoPic.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;

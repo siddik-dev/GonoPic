@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using GonoPic.Application.DTOs;
 using Microsoft.AspNetCore.Identity;
-using GonoPic.Domain.Identity;
+using GonoPic.Infrastructure.Identity;
 using GonoPic.Infrastructure.JWT;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;

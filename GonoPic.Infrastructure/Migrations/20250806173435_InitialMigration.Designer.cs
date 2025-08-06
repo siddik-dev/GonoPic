@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GonoPic.Infrastructure.Migrations
 {
     [DbContext(typeof(GonoPicDbContext))]
-    [Migration("20250804160049_InitialMigration")]
+    [Migration("20250806173435_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace GonoPic.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.7")
+                .HasAnnotation("ProductVersion", "9.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -150,7 +150,7 @@ namespace GonoPic.Infrastructure.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("GonoPic.Domain.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("GonoPic.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -370,7 +370,7 @@ namespace GonoPic.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GonoPic.Domain.Identity.ApplicationUser", null)
+                    b.HasOne("GonoPic.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany("Downloads")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -387,7 +387,7 @@ namespace GonoPic.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GonoPic.Domain.Identity.ApplicationUser", null)
+                    b.HasOne("GonoPic.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany("UploadedMedia")
                         .HasForeignKey("UploadedByUserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -426,7 +426,7 @@ namespace GonoPic.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("GonoPic.Domain.Identity.ApplicationUser", null)
+                    b.HasOne("GonoPic.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -435,7 +435,7 @@ namespace GonoPic.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("GonoPic.Domain.Identity.ApplicationUser", null)
+                    b.HasOne("GonoPic.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -450,7 +450,7 @@ namespace GonoPic.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GonoPic.Domain.Identity.ApplicationUser", null)
+                    b.HasOne("GonoPic.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -459,7 +459,7 @@ namespace GonoPic.Infrastructure.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("GonoPic.Domain.Identity.ApplicationUser", null)
+                    b.HasOne("GonoPic.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -481,7 +481,7 @@ namespace GonoPic.Infrastructure.Migrations
                     b.Navigation("MediaTags");
                 });
 
-            modelBuilder.Entity("GonoPic.Domain.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("GonoPic.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Navigation("Downloads");
 

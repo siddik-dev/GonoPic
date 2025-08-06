@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GonoPic.Domain.Identity
+namespace GonoPic.Infrastructure.Identity
 {
     public class ApplicationUser : IdentityUser
     {
