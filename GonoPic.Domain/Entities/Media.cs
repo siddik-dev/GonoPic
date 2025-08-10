@@ -13,15 +13,16 @@ namespace GonoPic.Domain.Entities
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public decimal Price { get; set; }
         public MediaType Type { get; set; } // Enum: Photo, Audio, Video
         public string FilePath { get; set; }
         public string ThumbnailPath { get; set; }
-        public DateTime UploadedAt { get; set; }
+        public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
 
-        public string UploadedByUserId { get; set; } = default!;
+        public string UploadedById { get; set; } = default!;
 
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public int? CategoryId { get; set; }
+        public Category? Category { get; set; }
 
         public ICollection<MediaTag> Tags { get; set; }
     }

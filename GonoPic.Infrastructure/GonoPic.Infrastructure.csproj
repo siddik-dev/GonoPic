@@ -17,12 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GonoPic.Application\GonoPic.Application.csproj" />
     <ProjectReference Include="..\GonoPic.Domain\GonoPic.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

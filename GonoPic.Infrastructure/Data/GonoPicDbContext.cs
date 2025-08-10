@@ -29,7 +29,7 @@ namespace GonoPic.Infrastructure.Data
             modelBuilder.Entity<Media>()
                 .HasOne<ApplicationUser>()
                 .WithMany(u => u.UploadedMedia)
-                .HasForeignKey(m => m.UploadedByUserId)
+                .HasForeignKey(m => m.UploadedById)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // ApplicationUser → Download

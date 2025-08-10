@@ -194,19 +194,20 @@ namespace GonoPic.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ThumbnailPath = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UploadedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UploadedByUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UploadedById = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Media", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Media_AspNetUsers_UploadedByUserId",
-                        column: x => x.UploadedByUserId,
+                        name: "FK_Media_AspNetUsers_UploadedById",
+                        column: x => x.UploadedById,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -325,9 +326,9 @@ namespace GonoPic.Infrastructure.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Media_UploadedByUserId",
+                name: "IX_Media_UploadedById",
                 table: "Media",
-                column: "UploadedByUserId");
+                column: "UploadedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MediaTags_TagId",

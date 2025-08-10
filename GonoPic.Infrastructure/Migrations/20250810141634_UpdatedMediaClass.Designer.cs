@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GonoPic.Infrastructure.Migrations
 {
     [DbContext(typeof(GonoPicDbContext))]
-    [Migration("20250806173435_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250810141634_UpdatedMediaClass")]
+    partial class UpdatedMediaClass
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,7 +77,7 @@ namespace GonoPic.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -87,6 +87,9 @@ namespace GonoPic.Infrastructure.Migrations
                     b.Property<string>("FilePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ThumbnailPath")
                         .IsRequired()
@@ -102,7 +105,7 @@ namespace GonoPic.Infrastructure.Migrations
                     b.Property<DateTime>("UploadedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UploadedByUserId")
+                    b.Property<string>("UploadedById")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -110,7 +113,7 @@ namespace GonoPic.Infrastructure.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("UploadedByUserId");
+                    b.HasIndex("UploadedById");
 
                     b.ToTable("Media");
                 });
@@ -383,13 +386,11 @@ namespace GonoPic.Infrastructure.Migrations
                 {
                     b.HasOne("GonoPic.Domain.Entities.Category", "Category")
                         .WithMany("MediaItems")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("GonoPic.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany("UploadedMedia")
-                        .HasForeignKey("UploadedByUserId")
+                        .HasForeignKey("UploadedById")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

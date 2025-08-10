@@ -33,13 +33,9 @@ namespace GonoPic.Controllers
                 LastName = dto.LastName,
                 Email = dto.Email
             };
-
             var result = await _userManager.CreateAsync(user, dto.Password);
             if (!result.Succeeded)
-            {
                 return BadRequest(result.Errors);
-            }
-
             return Ok(new { message = "User registered successfully" });
         }
 
@@ -48,19 +44,12 @@ namespace GonoPic.Controllers
         {
             var user = await _userManager.FindByEmailAsync(dto.Email);
             if (user == null)
-            {
                 return Unauthorized(new { message = "Invalid email or password" });
-            }
-
             var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
             if (!result.Succeeded)
-            {
                 return Unauthorized(new { message = "Invalid email or password" });
-            }
-
             var roles = await _userManager.GetRolesAsync(user);
             var token = _tokenService.CreateToken(user, roles);
-
             return Ok(new { token });
         }
 
@@ -71,10 +60,7 @@ namespace GonoPic.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
-            {
                 return NotFound();
-            }
-
             var dto = new UserReadDto
             {
                 Id = user.Id,
@@ -84,7 +70,6 @@ namespace GonoPic.Controllers
                 IsCreator = user.IsCreator,
                 CreatedAt = user.CreatedAt,
             };
-
             return Ok(dto);
         }
 
@@ -95,19 +80,12 @@ namespace GonoPic.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
-            {
                 return NotFound();
-            }
-
             user.FirstName = dto.FirstName;
             user.LastName = dto.LastName;
-
             var result = await _userManager.UpdateAsync(user);
             if (!result.Succeeded)
-            {
                 return BadRequest(result.Errors);
-            }
-
             return NoContent();
         }
 
@@ -118,16 +96,10 @@ namespace GonoPic.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null) 
-            {
                 return NotFound();
-            }
-
             var result = await _userManager.ChangePasswordAsync(user, dto.CurrentPassword, dto.NewPassword);
             if (!result.Succeeded)
-            {
                 return BadRequest(result.Errors);
-            }
-
             return NoContent();
         }
 
@@ -138,11 +110,9 @@ namespace GonoPic.Controllers
             var user = await _userManager.FindByIdAsync(id);
             if (user == null)
                 return NotFound();
-
             var result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
-
             return NoContent();
         }
 
@@ -154,11 +124,9 @@ namespace GonoPic.Controllers
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
                 return NotFound();
-
             var result = await _userManager.DeleteAsync(user);
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
-
             return NoContent();
         }
 

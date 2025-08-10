@@ -6,6 +6,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using GonoPic.Infrastructure.JWT;
 using GonoPic.Infrastructure.Identity;
+using GonoPic.Domain.Interfaces;
+using GonoPic.Application.Interfaces;
+using GonoPic.Application.Services;
+using GonoPic.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,8 +61,9 @@ builder.Services.AddScoped<TokenService>();
 
 
 // Register application services and repositories
-
-
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IMediaRepository, MediaRepository>();
+builder.Services.AddScoped<IMediaService, MediaService>();
 
 
 
