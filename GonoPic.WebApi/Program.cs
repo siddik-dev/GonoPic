@@ -69,6 +69,16 @@ builder.Services.AddScoped<IMediaService, MediaService>();
 
 var app = builder.Build();
 
+// Seed roles and admins
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+
+    await IdentityDataSeeder.SeedRolesAsync(roleManager);
+    await IdentityDataSeeder.SeedAdminAsync(userManager);
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

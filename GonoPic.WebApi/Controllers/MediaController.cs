@@ -1,7 +1,9 @@
 ﻿using GonoPic.Application.DTOs;
 using GonoPic.Application.Interfaces;
 using GonoPic.Application.Mappers;
+using GonoPic.Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -13,10 +15,12 @@ namespace GonoPic.WebApi.Controllers
     public class MediaController : ControllerBase
     {
         private readonly IMediaService _mediaService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public MediaController(IMediaService mediaService)
+        public MediaController(IMediaService mediaService, UserManager<ApplicationUser> userManager)
         {
             _mediaService = mediaService;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -50,9 +54,20 @@ namespace GonoPic.WebApi.Controllers
         public async Task<IActionResult> Create(MediaCreateDto dto)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByIdAsync(userId);
             var mediaEntity = MediaMapper.ToEntity(dto, userId);
-            await _mediaService.CreateMediaAsync(mediaEntity);
-            return Ok(new { message = "Media added successfully" });
+            var result = await _mediaService.CreateMediaAsync(mediaEntity);
+            if (!result)
+                return BadRequest(new { message = "Failed to create media" });
+
+            // Promoting user to Contributor role
+            var roles = await _userManager.GetRolesAsync(user);
+            if (!roles.Contains("Contributor") && !roles.Contains("Editor") && !roles.Contains("Admin"))
+            {
+                await _userManager.AddToRoleAsync(user, "Contributor");
+            }
+
+            return Ok(new { message = "Media added successfully" });        
         }
 
         [Authorize]

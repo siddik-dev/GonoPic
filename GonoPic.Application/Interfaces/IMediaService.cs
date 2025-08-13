@@ -13,8 +13,8 @@ namespace GonoPic.Application.Interfaces
         Task<IEnumerable<Media>> GetAllMediaAsync();
         Task<Media?> GetMediaByIdAsync(int id);
         Task<IEnumerable<Media>> GetMediaByUserIdAsync(string userId);
-        Task CreateMediaAsync(Media media);
-        Task UpdateMediaAsync(Media media);
-        Task DeleteMediaAsync(Media media);
+        Task<bool> CreateMediaAsync(Media media);
+        Task<bool> UpdateMediaAsync(Media media);
+        Task<bool> DeleteMediaAsync(Media media);
     }
 }

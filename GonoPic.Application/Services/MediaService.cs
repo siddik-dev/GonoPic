@@ -33,22 +33,25 @@ namespace GonoPic.Application.Services
             return await _unitOfWork.MediaRepository.GetByUserIdAsync(userId);
         }
 
-        public async Task CreateMediaAsync(Media media)
+        public async Task<bool> CreateMediaAsync(Media media)
         {
             await _unitOfWork.MediaRepository.AddAsync(media);
-            await _unitOfWork.SaveChangesAsync();
+            var rowsAffected = await _unitOfWork.SaveChangesAsync();
+            return rowsAffected > 0;
         }
 
-        public async Task UpdateMediaAsync(Media media)
+        public async Task<bool> UpdateMediaAsync(Media media)
         {
             _unitOfWork.MediaRepository.Update(media);
-            await _unitOfWork.SaveChangesAsync();
+            var rowsAffected = await _unitOfWork.SaveChangesAsync();
+            return rowsAffected > 0;
         }
 
-        public async Task DeleteMediaAsync(Media media)
+        public async Task<bool> DeleteMediaAsync(Media media)
         {
             _unitOfWork.MediaRepository.Remove(media);
-            await _unitOfWork.SaveChangesAsync();
+            var rowsAffected = await _unitOfWork.SaveChangesAsync();
+            return rowsAffected > 0;
         }
     }
 }
