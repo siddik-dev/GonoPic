@@ -25,8 +25,8 @@ namespace GonoPic.Infrastructure.Identity
 
         public static async Task SeedAdminAsync(UserManager<ApplicationUser> userManager, IConfiguration config)
         {
-            string adminEmail = config["AdminUser:Email"];
-            string adminPassword = config["AdminUser:Password"];
+            string adminEmail = config["AdminUser:Email"] ?? string.Empty;
+            string adminPassword = config["AdminUser:Password"] ?? string.Empty;
 
             if (await userManager.FindByEmailAsync(adminEmail) == null)
             {
