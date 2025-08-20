@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +23,10 @@ namespace GonoPic.Infrastructure.Identity
             }
         }
 
-        public static async Task SeedAdminAsync(UserManager<ApplicationUser> userManager)
+        public static async Task SeedAdminAsync(UserManager<ApplicationUser> userManager, IConfiguration config)
         {
-            string adminEmail = "admin@xmail.com"; // Load from config/env in production
-            string adminPassword = "Admin@123"; // Load from config/env in production
+            string adminEmail = config["AdminUser:Email"];
+            string adminPassword = config["AdminUser:Password"];
 
             if (await userManager.FindByEmailAsync(adminEmail) == null)
             {

@@ -76,7 +76,7 @@ using (var scope = app.Services.CreateScope())
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
     await IdentityDataSeeder.SeedRolesAsync(roleManager);
-    await IdentityDataSeeder.SeedAdminAsync(userManager);
+    await IdentityDataSeeder.SeedAdminAsync(userManager, builder.Configuration);
 }
 
 // Configure the HTTP request pipeline.
