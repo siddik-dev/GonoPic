@@ -35,7 +35,7 @@ namespace GonoPic.WebApi.Controllers
                 return NotFound();
 
             var categoryDto = CategoryMapper.ToDto(category);
-            return Ok(category);
+            return Ok(categoryDto);
         }
 
         [HttpGet("name/{name}")]
