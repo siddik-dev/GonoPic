@@ -40,6 +40,15 @@ namespace GonoPic.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Media>> GetByCategoryIdAsync(int categoryId)
+        {
+            return await _dbContext.Media
+                .Include(m => m.Category)
+                .Include(m => m.Tags)
+                .Where(m => m.CategoryId == categoryId)
+                .ToListAsync();
+        }
+
         public async Task AddAsync(Media media)
         {
             await _dbContext.Media.AddAsync(media);

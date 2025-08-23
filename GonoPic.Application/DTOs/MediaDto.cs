@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GonoPic.Application.DTOs
 {
-    public class MediaReadDto
+    public class MediaDto
     {
         public int Id { get; set; }
 

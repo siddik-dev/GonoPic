@@ -38,6 +38,10 @@ namespace GonoPic.Infrastructure.Data
                 .WithMany(u => u.Downloads)
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Category>()
+                .HasIndex(c => c.Name)
+                .IsUnique();
         }
 
         // DbSet properties for your entities

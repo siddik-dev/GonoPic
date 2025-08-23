@@ -1,18 +1,14 @@
 ﻿using GonoPic.Application.DTOs;
 using GonoPic.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace GonoPic.Application.Mappers
 {
     public static class MediaMapper
     {
-        public static MediaReadDto ToDto(Media media)
+        public static MediaDto ToDto(Media media)
         {
-            return new MediaReadDto()
+            return new MediaDto()
             {
                 Id = media.Id,
                 Title = media.Title,
