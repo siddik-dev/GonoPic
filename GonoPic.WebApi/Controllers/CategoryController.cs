@@ -1,9 +1,8 @@
 ﻿using GonoPic.Application.DTOs;
 using GonoPic.Application.Interfaces;
 using GonoPic.Application.Mappers;
-using GonoPic.Application.Services;
+using GonoPic.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GonoPic.WebApi.Controllers
@@ -13,12 +12,10 @@ namespace GonoPic.WebApi.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
-        private readonly IMediaService _mediaService;
 
-        public CategoryController(ICategoryService categoryService, IMediaService mediaService)
+        public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
-            _mediaService = mediaService;
         }
 
         [HttpGet]
@@ -27,7 +24,6 @@ namespace GonoPic.WebApi.Controllers
             var categoryList = await _categoryService.GetAllCategoriesAsync();
 
             var categoryDtos = categoryList.Select(CategoryMapper.ToDto);
-
             return Ok(categoryDtos);
         }
 
@@ -39,7 +35,6 @@ namespace GonoPic.WebApi.Controllers
                 return NotFound();
 
             var categoryDto = CategoryMapper.ToDto(category);
-
             return Ok(category);
         }
 
@@ -54,7 +49,6 @@ namespace GonoPic.WebApi.Controllers
                 return NotFound();
 
             var categoryDto = CategoryMapper.ToDto(category);
-
             return Ok(categoryDto);
         }
 
@@ -65,10 +59,11 @@ namespace GonoPic.WebApi.Controllers
             if (category == null)
                 return NotFound();
 
-            var mediaList = await _mediaService.GetMediaByCategoryIdAsync(id);
+            var mediaItems =  category.MediaItems ?? new List<Media>();
+            if (mediaItems == null || !mediaItems.Any())
+                return NotFound(new { Message = $"No media found for category '{category.Name}'." });
 
-            var mediaDtos = mediaList.Select(MediaMapper.ToDto);
-
+            var mediaDtos = mediaItems.Select(MediaMapper.ToDto);
             return Ok(mediaDtos);
         }
 

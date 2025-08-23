@@ -8,7 +8,6 @@ namespace GonoPic.Domain.Interfaces
         Task<IEnumerable<Media>> GetAllAsync();
         Task<Media?> GetByIdAsync(int id);
         Task<IEnumerable<Media>> GetByUserIdAsync(string userId);
-        Task<IEnumerable<Media>> GetByCategoryIdAsync(int categoryId);
         Task AddAsync (Media media);
         void Update (Media media);
         void Remove (Media media);

@@ -24,7 +24,9 @@ namespace GonoPic.Infrastructure.Repositories
 
         public async Task<Category?> GetByIdAsync(int id)
         {
-            return await _dbContext.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            return await _dbContext.Categories
+                .Include(c => c.MediaItems)
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<Category?> GetByNameAsync(string name)

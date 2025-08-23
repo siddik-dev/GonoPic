@@ -33,11 +33,6 @@ namespace GonoPic.Application.Services
             return await _unitOfWork.MediaRepository.GetByUserIdAsync(userId);
         }
 
-        public async Task<IEnumerable<Media>> GetMediaByCategoryIdAsync(int categoryId)
-        {
-            return await _unitOfWork.MediaRepository.GetByCategoryIdAsync(categoryId);
-        }
-
         public async Task<bool> CreateMediaAsync(Media media)
         {
             await _unitOfWork.MediaRepository.AddAsync(media);
