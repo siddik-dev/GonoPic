@@ -19,12 +19,12 @@ namespace GonoPic.Application.Mappers
                 ThumbnailPath = media.ThumbnailPath,
                 UploadedAt = media.UploadedAt,
                 UploadedById = media.UploadedById,
-                CategoryId = media.CategoryId,
-                TagIds = media.Tags?.Select(t => t.TagId).ToList() ?? new List<int>()
+                CategoryIds = media.Categories?.Select(c => c.Id).ToList() ?? new List<int>(),
+                TagIds = media.Tags?.Select(t => t.Id).ToList() ?? new List<int>()
             };
         }
 
-        public static Media ToEntity(MediaCreateDto dto, string uploadedById)
+        public static Media ToEntity(MediaCreateDto dto, string uploadedById, IEnumerable<Category> categories)
         {
             return new Media
             {
@@ -35,12 +35,12 @@ namespace GonoPic.Application.Mappers
                 FilePath = dto.FilePath,
                 ThumbnailPath = dto.ThumbnailPath,
                 UploadedById = uploadedById,
-                CategoryId = dto.CategoryId,
+                Categories = categories.ToList(),
                 Tags = dto.TagIds.Select(tagId => new MediaTag { TagId = tagId }).ToList()
             };
         }
 
-        public static void UpdateEntity(MediaUpdateDto dto, Media media)
+        public static void UpdateEntity(MediaUpdateDto dto, Media media, IEnumerable<Category> categories)
         {
             media.Title = dto.Title;
             media.Description = dto.Description;
@@ -48,7 +48,7 @@ namespace GonoPic.Application.Mappers
             media.Type = dto.Type;
             media.FilePath = dto.FilePath;
             media.ThumbnailPath = dto.ThumbnailPath;
-            media.CategoryId = dto.CategoryId;
+            media.Categories = categories.ToList();
             media.Tags = dto.TagIds.Select(tagId => new MediaTag { TagId = tagId }).ToList();
         }   
     }

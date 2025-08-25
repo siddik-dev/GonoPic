@@ -20,9 +20,8 @@ namespace GonoPic.Domain.Entities
         public DateTime UploadedAt { get; set; } = DateTime.UtcNow;
 
         public string UploadedById { get; set; } = default!;
-
-        public int? CategoryId { get; set; }
-        public Category? Category { get; set; }
+        
+        public ICollection<Category> Categories { get; set; }
 
         public ICollection<MediaTag> Tags { get; set; }
     }

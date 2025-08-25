@@ -27,8 +27,8 @@ namespace GonoPic.Application.DTOs
 
         public string UploadedById { get; set; } = string.Empty;
 
-        public int? CategoryId { get; set; }
+        public IEnumerable<int> CategoryIds { get; set; } = new List<int>();
 
-        public List<int> TagIds { get; set; } = new();
+        public IEnumerable<int> TagIds { get; set; } = new List<int>();
     }
 }

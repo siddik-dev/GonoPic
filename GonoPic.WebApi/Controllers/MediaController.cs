@@ -1,6 +1,7 @@
 ﻿using GonoPic.Application.DTOs;
 using GonoPic.Application.Interfaces;
 using GonoPic.Application.Mappers;
+using GonoPic.Domain.Entities;
 using GonoPic.Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,11 +16,13 @@ namespace GonoPic.WebApi.Controllers
     public class MediaController : ControllerBase
     {
         private readonly IMediaService _mediaService;
+        private readonly ICategoryService _categoryService;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public MediaController(IMediaService mediaService, UserManager<ApplicationUser> userManager)
+        public MediaController(IMediaService mediaService, ICategoryService categoryService, UserManager<ApplicationUser> userManager)
         {
             _mediaService = mediaService;
+            _categoryService = categoryService;
             _userManager = userManager;
         }
 
@@ -28,7 +31,7 @@ namespace GonoPic.WebApi.Controllers
         {
             var mediaList = await _mediaService.GetAllMediaAsync();
 
-            var mediaDtos = mediaList.Select(MediaMapper.ToDto);
+            var mediaDtos = mediaList.Select(MediaMapper.ToDto).ToList();
 
             return Ok(mediaDtos);
         }
@@ -52,9 +55,11 @@ namespace GonoPic.WebApi.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _userManager.FindByIdAsync(userId);
 
-            var mediaEntity = MediaMapper.ToEntity(dto, userId);
+            var categories = await _categoryService.GetCategoriesByIdsAsync(dto.CategoryIds);
 
-            var result = await _mediaService.CreateMediaAsync(mediaEntity);
+            var media = MediaMapper.ToEntity(dto, userId, categories);
+
+            var result = await _mediaService.CreateMediaAsync(media);
             if (!result)
                 return BadRequest(new { message = "Failed to create media" });
 
@@ -80,7 +85,9 @@ namespace GonoPic.WebApi.Controllers
             if (media.UploadedById != userId)
                 return Forbid();
 
-            MediaMapper.UpdateEntity(dto, media);
+            var categories = await _categoryService.GetCategoriesByIdsAsync(dto.CategoryIds);
+
+            MediaMapper.UpdateEntity(dto, media, categories);
 
             var result = await _mediaService.UpdateMediaAsync(media);
             if (!result)

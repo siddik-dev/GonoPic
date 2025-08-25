@@ -29,6 +29,15 @@ namespace GonoPic.Infrastructure.Repositories
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
+        public async Task<IEnumerable<Category>> GetByIdsAsync(IEnumerable<int> ids)
+        {
+            var idSet = ids.ToHashSet();
+
+            return await _dbContext.Categories
+                .Where(c => idSet.Contains(c.Id))
+                .ToListAsync();
+        }
+
         public async Task<Category?> GetByNameAsync(string name)
         {
             return await _dbContext.Categories.FirstOrDefaultAsync(c => c.Name == name);

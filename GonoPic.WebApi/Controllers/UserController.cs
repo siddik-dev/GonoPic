@@ -62,7 +62,6 @@ namespace GonoPic.Controllers
             var roles = await _userManager.GetRolesAsync(user);
 
             var token = _tokenService.CreateToken(user, roles);
-
             return Ok(new { token });
         }
 
@@ -83,7 +82,6 @@ namespace GonoPic.Controllers
                 Email = user.Email,
                 CreatedAt = user.CreatedAt,
             };
-
             return Ok(dto);
         }
 
@@ -97,7 +95,6 @@ namespace GonoPic.Controllers
             var mediaList = await _mediaService.GetMediaByUserIdAsync(id);
 
             var mediaDtos = mediaList.Select(MediaMapper.ToDto);
-
             return Ok(mediaDtos);
         }
 

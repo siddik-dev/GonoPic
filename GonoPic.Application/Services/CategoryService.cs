@@ -18,6 +18,11 @@ namespace GonoPic.Application.Services
             return await _unitOfWork.CategoryRepository.GetAllAsync();
         }
 
+        public async Task<IEnumerable<Category>> GetCategoriesByIdsAsync(IEnumerable<int> ids)
+        {
+            return await _unitOfWork.CategoryRepository.GetByIdsAsync(ids);
+        }
+
         public async Task<Category?> GetCategoryByIdAsync(int id)
         {
             return await _unitOfWork.CategoryRepository.GetByIdAsync(id);
