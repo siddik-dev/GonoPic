@@ -42,6 +42,10 @@ namespace GonoPic.Infrastructure.Data
             modelBuilder.Entity<Category>()
                 .HasIndex(c => c.Name)
                 .IsUnique();
+
+            modelBuilder.Entity<Tag>()
+                .HasIndex(t => t.Name)
+                .IsUnique();
         }
 
         // DbSet properties for your entities

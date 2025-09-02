@@ -42,17 +42,20 @@ namespace GonoPic.Infrastructure.Repositories
 
         public async Task AddAsync(Media media)
         {
-            await _dbContext.Media.AddAsync(media);
+            await _dbContext.Media
+                .AddAsync(media);
         }
 
         public void Update(Media media)
         {
-            _dbContext.Media.Update(media);
+            _dbContext.Media
+                .Update(media);
         }
 
         public void Remove(Media media)
         {
-            _dbContext.Media.Remove(media);
+            _dbContext.Media
+                .Remove(media);
         }
     }
 }

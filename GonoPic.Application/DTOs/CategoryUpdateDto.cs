@@ -9,7 +9,9 @@ namespace GonoPic.Application.DTOs
 {
     public class CategoryUpdateDto
     {
-        [Required, StringLength(50)]
+        [Required, StringLength(100)]
         public string Name {  get; set; } = string.Empty;
+
+        public string Description { get; set; } = string.Empty;
     }
 }

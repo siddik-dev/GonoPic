@@ -24,7 +24,7 @@ namespace GonoPic.Application.Mappers
             };
         }
 
-        public static Media ToEntity(MediaCreateDto dto, string uploadedById, IEnumerable<Category> categories)
+        public static Media ToEntity(MediaCreateDto dto, string uploadedById, IEnumerable<Category> categories, IEnumerable<Tag> tags)
         {
             return new Media
             {
@@ -36,11 +36,11 @@ namespace GonoPic.Application.Mappers
                 ThumbnailPath = dto.ThumbnailPath,
                 UploadedById = uploadedById,
                 Categories = categories.ToList(),
-                Tags = dto.TagIds.Select(tagId => new MediaTag { TagId = tagId }).ToList()
+                Tags = tags.ToList()
             };
         }
 
-        public static void UpdateEntity(MediaUpdateDto dto, Media media, IEnumerable<Category> categories)
+        public static void UpdateEntity(MediaUpdateDto dto, Media media, IEnumerable<Category> categories, IEnumerable<Tag> tags)
         {
             media.Title = dto.Title;
             media.Description = dto.Description;
@@ -49,7 +49,7 @@ namespace GonoPic.Application.Mappers
             media.FilePath = dto.FilePath;
             media.ThumbnailPath = dto.ThumbnailPath;
             media.Categories = categories.ToList();
-            media.Tags = dto.TagIds.Select(tagId => new MediaTag { TagId = tagId }).ToList();
+            media.Tags = tags.ToList();
         }   
     }
 }

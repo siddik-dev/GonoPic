@@ -10,12 +10,14 @@ namespace GonoPic.Infrastructure.Repositories
         private readonly GonoPicDbContext _context;
         public IMediaRepository MediaRepository { get; }
         public ICategoryRepository CategoryRepository { get; }
+        public ITagRepository TagRepository { get; }
 
-        public UnitOfWork(GonoPicDbContext context, IMediaRepository mediaRepository, ICategoryRepository categoryRepository)
+        public UnitOfWork(GonoPicDbContext context, IMediaRepository mediaRepository, ICategoryRepository categoryRepository, ITagRepository tagRepository)
         {
             _context = context;
             MediaRepository = mediaRepository;
             CategoryRepository = categoryRepository;
+            TagRepository = tagRepository;
         }
 
         public async Task<int> SaveChangesAsync()

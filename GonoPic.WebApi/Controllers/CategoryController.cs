@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GonoPic.WebApi.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;

@@ -11,19 +11,21 @@ using System.Security.Claims;
 
 namespace GonoPic.WebApi.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class MediaController : ControllerBase
     {
         private readonly IMediaService _mediaService;
         private readonly ICategoryService _categoryService;
+        private readonly ITagService _tagService;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public MediaController(IMediaService mediaService, ICategoryService categoryService, UserManager<ApplicationUser> userManager)
+        public MediaController(IMediaService mediaService, ICategoryService categoryService, UserManager<ApplicationUser> userManager, ITagService tagService)
         {
             _mediaService = mediaService;
             _categoryService = categoryService;
             _userManager = userManager;
+            _tagService = tagService;
         }
 
         [HttpGet]
@@ -32,7 +34,6 @@ namespace GonoPic.WebApi.Controllers
             var mediaList = await _mediaService.GetAllMediaAsync();
 
             var mediaDtos = mediaList.Select(MediaMapper.ToDto).ToList();
-
             return Ok(mediaDtos);
         }
 
@@ -44,7 +45,6 @@ namespace GonoPic.WebApi.Controllers
                 return NotFound();
 
             var mediaDto = MediaMapper.ToDto(media);
-
             return Ok(mediaDto);
         }
             
@@ -57,7 +57,9 @@ namespace GonoPic.WebApi.Controllers
 
             var categories = await _categoryService.GetCategoriesByIdsAsync(dto.CategoryIds);
 
-            var media = MediaMapper.ToEntity(dto, userId, categories);
+            var tags = await _tagService.ProcessTagsAsync(dto.TagNames);
+
+            var media = MediaMapper.ToEntity(dto, userId, categories, tags);
 
             var result = await _mediaService.CreateMediaAsync(media);
             if (!result)
@@ -87,7 +89,9 @@ namespace GonoPic.WebApi.Controllers
 
             var categories = await _categoryService.GetCategoriesByIdsAsync(dto.CategoryIds);
 
-            MediaMapper.UpdateEntity(dto, media, categories);
+            var tags = await _tagService.ProcessTagsAsync(dto.TagNames);
+
+            MediaMapper.UpdateEntity(dto, media, categories, tags);
 
             var result = await _mediaService.UpdateMediaAsync(media);
             if (!result)

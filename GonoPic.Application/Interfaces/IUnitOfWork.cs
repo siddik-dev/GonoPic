@@ -7,6 +7,7 @@ namespace GonoPic.Application.Interfaces
     {
         IMediaRepository MediaRepository { get; }
         ICategoryRepository CategoryRepository { get; }
+        ITagRepository TagRepository { get; }
         Task<int> SaveChangesAsync();
     }
 }

@@ -40,22 +40,26 @@ namespace GonoPic.Infrastructure.Repositories
 
         public async Task<Category?> GetByNameAsync(string name)
         {
-            return await _dbContext.Categories.FirstOrDefaultAsync(c => c.Name == name);
+            return await _dbContext.Categories
+                .FirstOrDefaultAsync(c => c.Name == name);
         }
 
         public async Task AddAsync(Category category)
         {
-            await _dbContext.Categories.AddAsync(category);
+            await _dbContext.Categories
+                .AddAsync(category);
         }
 
         public void UpdateAsync(Category category)
         {
-            _dbContext.Categories.Update(category);
+            _dbContext.Categories
+                .Update(category);
         }
 
         public void RemoveAsync(Category category)
         {
-            _dbContext.Categories.Remove(category);
+            _dbContext.Categories
+                .Remove(category);
         }
     }
 }

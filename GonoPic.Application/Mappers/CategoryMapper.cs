@@ -12,6 +12,7 @@ namespace GonoPic.Application.Mappers
             {
                 Id = category.Id,
                 Name = category.Name,
+                Description = category.Description
             };
         }
 
@@ -19,13 +20,15 @@ namespace GonoPic.Application.Mappers
         {
             return new Category()
             {
-                Name = dto.Name
+                Name = dto.Name,
+                Description = dto.Description
             };
         }
 
         public static void UpdateEntity(CategoryUpdateDto dto, Category category)
         {
             category.Name = dto.Name;
+            category.Description = dto.Description;
         }
     }
 }

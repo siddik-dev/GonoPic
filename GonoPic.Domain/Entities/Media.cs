@@ -23,7 +23,7 @@ namespace GonoPic.Domain.Entities
         
         public ICollection<Category> Categories { get; set; }
 
-        public ICollection<MediaTag> Tags { get; set; }
+        public ICollection<Tag> Tags { get; set; }
     }
 
 }

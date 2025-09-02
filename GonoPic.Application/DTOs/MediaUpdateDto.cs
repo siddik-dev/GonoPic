@@ -31,6 +31,6 @@ namespace GonoPic.Application.DTOs
 
         public IEnumerable<int> CategoryIds { get; set; } = new List<int>();
 
-        public IEnumerable<int> TagIds { get; set; } = new List<int>();
+        public IEnumerable<string> TagNames { get; set; } = new List<string>();
     }
 }
