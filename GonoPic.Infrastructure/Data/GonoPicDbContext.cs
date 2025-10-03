@@ -21,10 +21,6 @@ namespace GonoPic.Infrastructure.Data
             // Configure entity relationships and properties here
             base.OnModelCreating(modelBuilder);
 
-            // Composite key for MediaTag (many-to-many)
-            modelBuilder.Entity<MediaTag>()
-                .HasKey(mt => new { mt.MediaId, mt.TagId });
-
             // ApplicationUser → Media (uploaded by)
             modelBuilder.Entity<Media>()
                 .HasOne<ApplicationUser>()
@@ -52,7 +48,6 @@ namespace GonoPic.Infrastructure.Data
         public DbSet<Media> Media { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<MediaTag> MediaTags { get; set; }
         public DbSet<Download> Downloads { get; set; }
     }
 }
